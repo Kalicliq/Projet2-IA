@@ -33,5 +33,4 @@ df = pd.DataFrame(
         "Sex": ["male", "male", "female"],
     }
 )
-#print(df.describe)
-
+print(df.describe)
