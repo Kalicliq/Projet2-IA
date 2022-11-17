@@ -7,7 +7,6 @@ from sklearn.svm import SVR
 from sklearn.neighbors import KNeighborsRegressor
 from sklearn.linear_model import SGDRegressor
 from sklearn.tree import DecisionTreeRegressor
-from sklearn.neural_network import MLPRegressor
 
 import numpy as np
 import scipy as sp
@@ -19,19 +18,30 @@ from sklearn import preprocessing
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import r2_score
 
-#dataset = fetch_california_housing(data_home=None, as_frame=True)
-#print(dataset)
+from sklearn.datasets import fetch_california_housing
+dataset_house = fetch_california_housing(as_frame=True)
 
-df = pd.DataFrame(
-    {
-        "Name": [
-            "Braund, Mr. Owen Harris",
-            "Allen, Mr. William Henry",
-            "Bonnell, Miss. Elizabeth",
-        ],
-        "Age": [22, 35, 58],
-        "Sex": ["male", "male", "female"],
-    }
-)
-#print(df.describe)
+ds_x = dataset_house.data
+ds_y = dataset_house.target
 
+tts = train_test_split()
+
+# Fit regression model
+regr_1 = DecisionTreeRegressor()
+regr_1.fit(ds_x, ds_y)
+
+
+# Predict
+
+y_1 = regr_1.predict(X_test)
+
+
+# Plot the results
+plt.figure()
+plt.scatter(dataset_house.data, dataset_house.target, s=20, edgecolor="black", c="darkorange", label="data")
+plt.plot(X_test, y_1, color="cornflowerblue", label="max_depth=2", linewidth=2)
+plt.xlabel("data")
+plt.ylabel("target")
+plt.title("Decision Tree Regression")
+plt.legend()
+plt.show()
